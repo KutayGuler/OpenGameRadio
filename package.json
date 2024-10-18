@@ -27,6 +27,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"svelte-headlessui": "^0.0.43"
+		"svelte-headlessui": "^0.0.43",
+		"youtube-player": "^5.6.0"
 	}
 }

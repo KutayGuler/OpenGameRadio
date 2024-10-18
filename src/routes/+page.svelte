@@ -1,14 +1,15 @@
-<div class="h-full bg-base-900 p-4 text-white">
-	<div class="flex flex-row gap-2">
-		Base
-		<div class="size-8 rounded-full bg-base-500"></div>
-	</div>
-	<div class="flex flex-row gap-2">
-		Primary
-		<div class="size-8 rounded-full bg-primary-500"></div>
-	</div>
-	<div class="flex flex-row gap-2">
-		Secondary
-		<div class="size-8 rounded-full bg-secondary-500"></div>
-	</div>
-</div>
+<script lang="ts">
+	import Player from '$lib/Player.svelte';
+
+	// TODO: change audio levels
+	// TODO: play/pause specific player
+	let players = [];
+
+	const radios = new Array(10).fill('HwIku9OM_UQ');
+</script>
+
+<button on:click={() => players[2].playVideo()}>play third</button>
+
+{#each radios as radio, i}
+	<Player loadArgs={radio} bind:player={players[i]}></Player>
+{/each}
