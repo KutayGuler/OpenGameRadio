@@ -1,23 +1,42 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import YouTubePlayer from 'youtube-player';
+	import { createEventDispatcher, onMount } from 'svelte';
+	import { getRandomInt } from './constants';
+	const dispatch = createEventDispatcher();
 
+	export let YT: any;
+	export let player: any;
+	export let channel: any;
+	export let isCurrent;
 	let playerElement: HTMLDivElement;
-	let isPlaying = false;
-	export let player;
-	export let loadArgs: any;
+
+	const { id, url, max } = channel;
+
+	$: if (isCurrent) {
+		playerElement.scrollIntoView();
+	}
 
 	onMount(() => {
-		player = YouTubePlayer(playerElement);
-		player.loadVideoById(loadArgs);
+		player = new window.YT.Player(playerElement, {
+			height: '0',
+			width: '0',
+			videoId: url,
+			events: {
+				onReady: () => dispatch('ready')
+			},
+			playerVars: {
+				loop: 1,
+				start: getRandomInt(max),
+				playlist: url
+			}
+		});
 	});
-
-	function toggle() {
-		player[isPlaying ? 'pauseVideo' : 'playVideo']();
-		isPlaying = !isPlaying;
-	}
 </script>
 
-<button on:click={toggle}>play</button>
-
-<div class="h-40 w-96" id="player" bind:this={playerElement}></div>
+<div class="absolute hidden" id="player-{id}" bind:this={playerElement}></div>
+<img
+	class="size-96 object-contain duration-150 ease-out"
+	class:grayscale={!isCurrent}
+	class:scale-125={isCurrent}
+	src="logos/{id}.png"
+	alt=""
+/>
