@@ -1854,7 +1854,7 @@
 	Sb && Sb();
 }).call(this);
 
-export const radios = [
+export const channels = [
 	{ id: 'lrr', url: '7-XncPlc67s', max: 17294 },
 	{ id: 'thevibe', url: '0oATCfERMV0', max: 5557 },
 	{ id: 'jnr', url: '3K51DawYRwI', max: 2360 },
@@ -1875,6 +1875,8 @@ export const radios = [
 	{ id: 'massiveb', url: 'TjP8cGVqomo', max: 1959 }
 	// 'FjoIk-C4brM'
 ];
+
+export const channelCount = Object.keys(channels).length;
 
 export function getRandomInt(max: number) {
 	return Math.floor(Math.random() * max);
