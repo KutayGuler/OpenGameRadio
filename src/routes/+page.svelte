@@ -1,15 +1,13 @@
 <script lang="ts">
-	import { channelCount, channels } from '$lib/constants';
+	import { CHANNEL_TOTAL, channelCount, channels } from '$lib/constants';
 	import Player from '$lib/Player.svelte';
 
 	// TODO: change audio levels
 	// TODO: play/pause specific player
-	// TODO: carousel
-	// TODO: center all images
-	// TODO: get GTA IV font
 	// TODO: radio crack before switch
-	// TODO: mute instead of pause
+	// TODO: squoosh assets
 
+	let parent: HTMLDivElement;
 	let players: any[] = [];
 	let readyCount = 0;
 	let currentChannelIndex = -1;
@@ -25,54 +23,89 @@
 
 	function playChannel(i: number) {
 		if (currentChannelIndex != -1) {
-			players[currentChannelIndex].pauseVideo();
+			players[currentChannelIndex].mute();
 		}
 
-		if (i > channelCount) {
+		if (i >= channelCount) {
 			i = 0;
 		} else if (i < 0) {
 			i = channelCount - 1;
 		}
 
-		players[i].playVideo();
+		console.log(players[i]);
+		if (players[i].isMuted()) {
+			players[i].unMute();
+		} else {
+			players[i].playVideo();
+		}
+
 		currentChannelIndex = i;
 	}
 
 	function turnOff() {
 		if (currentChannelIndex != -1) {
-			players[currentChannelIndex].pauseVideo();
+			players[currentChannelIndex].mute();
 		}
 	}
 
 	function handle(e: KeyboardEvent) {
 		if (!allChannelsReady) return;
+		e.preventDefault();
 
 		if (e.key == 'ArrowRight') {
 			playChannel(currentChannelIndex + 1);
 		} else if (e.key == 'ArrowLeft') {
 			playChannel(currentChannelIndex - 1);
 		} else if (e.key == 'Space') {
+			turnOff();
 		}
 	}
-</script>
 
-<button on:click={turnOff}>Turn off radio</button>
+	let offsetX = 0;
+
+	function centerChildByIdFromUrl() {
+		offsetX = currentChannelIndex * -CHANNEL_TOTAL;
+	}
+
+	$: currentChannelIndex, centerChildByIdFromUrl();
+</script>
 
 <svelte:window on:keydown={handle} />
 
-{#if window.YT}
-	<div class:opacity-0={!allChannelsReady} class="flex w-full flex-row overflow-y-auto px-8">
-		{#each channels as channel, i}
-			{@const isCurrent = i == currentChannelIndex}
+<main class="flex h-full w-full flex-col items-start p-4">
+	<button on:click={turnOff}>Turn off radio</button>
 
-			<Player
-				{isCurrent}
-				YT={window.YT}
-				{channel}
-				bind:player={players[i]}
-				on:ready={incrementReadyCount}
-			></Player>
-		{/each}
-	</div>
-	<p class:hidden={allChannelsReady}>Loading... ({readyCount} / {channelCount})</p>
-{/if}
+	{#if window.YT}
+		<div
+			class:opacity-0={!allChannelsReady}
+			class="relative flex h-full w-full flex-row items-center justify-center overflow-hidden"
+		>
+			<div
+				style="transform: translateX({offsetX}px); padding-left: 28%;"
+				class="parent absolute flex h-full w-2/3 flex-row items-center gap-32 transition-transform"
+				bind:this={parent}
+			>
+				{#each channels as channel, i}
+					{@const isCurrent = i == currentChannelIndex}
+
+					<Player
+						{isCurrent}
+						YT={window.YT}
+						{channel}
+						bind:player={players[i]}
+						on:ready={incrementReadyCount}
+					></Player>
+				{/each}
+			</div>
+		</div>
+		<p class:hidden={allChannelsReady}>Loading... ({readyCount} / {channelCount})</p>
+	{/if}
+</main>
+
+<style>
+	.parent {
+		transition-property: transform;
+		transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+		transition-duration: 300ms;
+	}
+</style>

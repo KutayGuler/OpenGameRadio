@@ -1881,3 +1881,7 @@ export const channelCount = Object.keys(channels).length;
 export function getRandomInt(max: number) {
 	return Math.floor(Math.random() * max);
 }
+
+export const CHANNEL_SIZE = 288;
+export const CHANNEL_GAP = 128;
+export const CHANNEL_TOTAL = CHANNEL_SIZE + CHANNEL_GAP;
