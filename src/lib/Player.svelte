@@ -35,7 +35,7 @@
 
 <div class="absolute hidden" id="player-{id}" bind:this={playerElement}></div>
 
-<div class="relative flex min-h-80 min-w-80 flex-col items-center justify-center">
+<div class="relative flex max-h-80 min-h-80 min-w-80 flex-col items-center justify-center">
 	<img
 		{id}
 		class="size-72 object-contain duration-300 ease-out"

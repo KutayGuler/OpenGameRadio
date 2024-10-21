@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { CHANNEL_TOTAL, channelCount, channels } from '$lib/constants';
+	import { CHANNEL_GAP, CHANNEL_SIZE, CHANNEL_TOTAL, channelCount, channels } from '$lib/constants';
 	import Player from '$lib/Player.svelte';
 
 	// TODO: change audio levels
@@ -68,9 +68,10 @@
 	}
 
 	$: currentChannelIndex, centerChildByIdFromUrl();
+	let innerWidth: number;
 </script>
 
-<svelte:window on:keydown={handle} />
+<svelte:window on:keydown={handle} bind:innerWidth />
 
 <main class="flex h-full w-full flex-col items-start p-4">
 	<button on:click={turnOff}>Turn off radio</button>
@@ -78,11 +79,12 @@
 	{#if window.YT}
 		<div
 			class:opacity-0={!allChannelsReady}
-			class="relative flex h-full w-full flex-row items-center justify-center overflow-hidden"
+			class="relative flex h-full w-full flex-row items-start justify-start overflow-hidden"
 		>
 			<div
-				style="transform: translateX({offsetX}px); padding-left: 28%;"
-				class="parent absolute flex h-full w-2/3 flex-row items-center gap-32 transition-transform"
+				style="transform: translateX({offsetX}px); padding-left: {(innerWidth - CHANNEL_SIZE) /
+					2}px;"
+				class="parent absolute left-0 flex h-full w-full flex-row items-center gap-32 transition-transform"
 				bind:this={parent}
 			>
 				{#each channels as channel, i}
