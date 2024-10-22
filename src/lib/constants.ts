@@ -1854,29 +1854,33 @@
 	Sb && Sb();
 }).call(this);
 
-export const channels = [
-	{ id: 'lrr', url: '7-XncPlc67s', max: 17294 },
-	{ id: 'thevibe', url: '0oATCfERMV0', max: 5557 },
-	{ id: 'jnr', url: '3K51DawYRwI', max: 2360 },
-	{ id: 'thejourney', url: 'rJvoeLBVccw', max: 1566 },
-	{ id: 'fusion', url: '6V4U3FyneYc', max: 2708 },
-	{ id: 'vladivostok', url: 'PWvpbK27bT0', max: 9880 },
-	{ id: 'lchc', url: 'STobvX5-i9I', max: 4105 },
-	{ id: 'tuffgong', url: 'MPKJd0lcolY', max: 2828 },
-	{ id: 'if99', url: '4XyglHX42S8', max: 3412 },
-	{ id: 'theclassics', url: '6Esu5VZwB1s', max: 2723 },
-	// ramjam: 'TNPnzSJw9DE',
-	// 'IVGWMbjsAow',
-	{ id: 'sanjuan', url: 'hB71o1Va_R8', max: 3942 },
-	{ id: 'k109', url: '2FtTnv_hLmE', max: 10812 },
-	// 'JNQkffG6FZI',
-	// beat: 'TcU3f6OX6gA',
-	{ id: 'electrochoc', url: 'xOC0GwunvgA', max: 4811 },
-	{ id: 'massiveb', url: 'TjP8cGVqomo', max: 1959 }
-	// 'FjoIk-C4brM'
-];
 
-export const channelCount = Object.keys(channels).length;
+export const games = {
+	gta4: {
+		channels: [
+			{ id: 'lrr', url: '7-XncPlc67s', max: 17294 },
+			{ id: 'thevibe', url: '0oATCfERMV0', max: 5557 },
+			{ id: 'jnr', url: '3K51DawYRwI', max: 2360 },
+			{ id: 'thejourney', url: 'rJvoeLBVccw', max: 1566 },
+			{ id: 'fusion', url: '6V4U3FyneYc', max: 2708 },
+			{ id: 'vladivostok', url: 'PWvpbK27bT0', max: 9880 },
+			{ id: 'lchc', url: 'STobvX5-i9I', max: 4105 },
+			{ id: 'tuffgong', url: 'MPKJd0lcolY', max: 2828 },
+			{ id: 'if99', url: '4XyglHX42S8', max: 3412 },
+			{ id: 'theclassics', url: '6Esu5VZwB1s', max: 2723 },
+			// ramjam: 'TNPnzSJw9DE',
+			// 'IVGWMbjsAow',
+			{ id: 'sanjuan', url: 'hB71o1Va_R8', max: 3942 },
+			{ id: 'k109', url: '2FtTnv_hLmE', max: 10812 },
+			// 'JNQkffG6FZI',
+			// beat: 'TcU3f6OX6gA',
+			{ id: 'electrochoc', url: 'xOC0GwunvgA', max: 4811 },
+			{ id: 'massiveb', url: 'TjP8cGVqomo', max: 1959 }
+			// 'FjoIk-C4brM'
+		],
+	}
+}
+
 
 export function getRandomInt(max: number) {
 	return Math.floor(Math.random() * max);

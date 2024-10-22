@@ -1,25 +1,46 @@
-<script lang="ts">
-	import { createEventDispatcher, onMount } from 'svelte';
-	import { getRandomInt } from './constants';
-	const dispatch = createEventDispatcher();
+<script module>
+	let defaultVolumeSet = false;
 
-	export let YT: any;
-	export let player: any;
-	export let channel: any;
-	export let isCurrent;
-	let playerElement: HTMLDivElement;
+	interface Props {
+		player: any;
+		channel: any;
+		isCurrent: any;
+		incrementReadyCount: Function;
+		setDefaultVolume: Function;
+	}
+</script>
+
+<script lang="ts">
+	import { getRandomInt } from './constants';
+
+	let {
+		player = $bindable(),
+		channel,
+		incrementReadyCount,
+		setDefaultVolume,
+		isCurrent
+	}: Props = $props();
+	let playerElement: HTMLDivElement | undefined = $state();
+	let playerState = $state(-1);
 
 	const { id, url, max } = channel;
 
-	let playerState = -1;
-
-	onMount(() => {
+	$effect(() => {
 		player = new window.YT.Player(playerElement, {
 			height: '0',
 			width: '0',
 			videoId: url,
 			events: {
-				onReady: () => dispatch('ready'),
+				onReady: (e) => {
+					incrementReadyCount();
+
+					if (!defaultVolumeSet) {
+						console.log(player);
+						setDefaultVolume(player.getVolume());
+						defaultVolumeSet = true;
+						console.log(defaultVolumeSet);
+					}
+				},
 				onStateChange: (e) => {
 					playerState = e.data;
 				}
