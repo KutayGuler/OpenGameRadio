@@ -5,7 +5,6 @@
 
 	// TODO: radio crack before switch
 	// TODO: add the missing radios
-	// TODO: squoosh assets
 
 	const { channels } = games[$page.params.game_id];
 	const channelCount = channels.length;
