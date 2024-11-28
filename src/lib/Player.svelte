@@ -62,7 +62,7 @@
 		class="size-72 object-contain duration-300 ease-out"
 		class:grayscale={!isCurrent}
 		class:scale-125={isCurrent}
-		src="logos/{id}.png"
+		src="logos/{id}.webp"
 		alt=""
 	/>
 	<svg
