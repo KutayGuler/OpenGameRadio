@@ -1854,7 +1854,6 @@
 	Sb && Sb();
 }).call(this);
 
-
 export const games = {
 	gta4: {
 		channels: [
@@ -1877,10 +1876,13 @@ export const games = {
 			{ id: 'electrochoc', url: 'xOC0GwunvgA', max: 4811 },
 			{ id: 'massiveb', url: 'TjP8cGVqomo', max: 1959 }
 			// 'FjoIk-C4brM'
-		],
+		]
 	}
-}
+};
 
+export const titles = {
+	gta4: 'Grand Theft Auto IV'
+};
 
 export function getRandomInt(max: number) {
 	return Math.floor(Math.random() * max);

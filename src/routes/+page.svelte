@@ -7,3 +7,8 @@
 	<a class="hover:text-amber-500" href="/gta4">Grand Theft Auto IV</a>
 	<p class="text-base-500">Grand Theft Auto V</p>
 </main>
+
+<svelte:head>
+	<title>Open Game Radio</title>
+	<meta name="description" content="Your favorite game radios in a single place." />
+</svelte:head>

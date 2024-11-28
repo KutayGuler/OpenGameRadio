@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { CHANNEL_SIZE, CHANNEL_TOTAL, games } from '$lib/constants';
+	import { CHANNEL_SIZE, CHANNEL_TOTAL, games, titles } from '$lib/constants';
 	import Player from '$lib/Player.svelte';
 
 	// TODO: radio crack before switch
@@ -104,6 +104,10 @@
 </script>
 
 <svelte:window onkeydown={handle} bind:innerWidth />
+
+<svelte:head>
+	<title>Open Game Radio | {titles[$page.params.game_id]}</title>
+</svelte:head>
 
 <main class="flex h-full w-full flex-col items-start justify-center">
 	<div
